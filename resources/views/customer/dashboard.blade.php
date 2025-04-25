@@ -9,11 +9,12 @@
             <div class="flex justify-between items-center mb-8">
                 <div>
                     <h1 class="text-2xl font-bold text-gray-800">Dashboard Customer</h1>
-                    <p>Selamat Datang, Joe</p>
+                    <p>Selamat Datang, {{ Auth::user()->name }}</p>
                 </div>
                 <div>
-                    <button
-                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200 flex text-align-items-center">
+                    <button onclick="window.location.href='{{ route('dashboard.create.relife') }}'"
+                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200 flex items-center">
+
                         <svg viewBox="0 0 24 24" fill="none" class="w-7 h-7 pr-2" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -27,8 +28,9 @@
                                     stroke="#ffffff" stroke-width="2"></path>
                             </g>
                         </svg>
-                        Buat Permintaan Reffil
+                        Buat Permintaan Refill
                     </button>
+
                 </div>
             </div>
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 
+
 class AuthController extends Controller
 {
     public function showLoginForm()
@@ -34,7 +35,7 @@ class AuthController extends Controller
                 default => redirect()->intended('/')
             };
         }
-        
+
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
