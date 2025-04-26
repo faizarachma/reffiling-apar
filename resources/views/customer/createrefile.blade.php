@@ -11,17 +11,7 @@
             @include('customer.refile.product')
 
 
-            <!-- Navigation Buttons -->
-            <div class="flex justify-between pt-10">
-                <a href="{{ route('customer.refill.product') }}"
-                    class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
-                    Kembali
-                </a>
-                <a onclick="window.location" href="{{ route('customer.refill.jadwalandlocation') }}"
-                    class="px-6 py-2 bg-red-800 text-white rounded-md hover:bg-red-800 transition-colors">
-                    Lanjut
-                </a>
-            </div>
+
 
 
         </div>
