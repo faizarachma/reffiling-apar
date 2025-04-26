@@ -18,6 +18,8 @@ Route::controller(AuthController::class)->group(function() {
 
     Route::get('/dashboard', [GudangController::class, 'dashboard'])->name('customer.dashboard');
     Route::get('/dashboard/create', [GudangController::class, 'createrefile'])->name('dashboard.create.relife');
+    Route::get('/dashboard/{id}', [GudangController::class, 'show'])->name('dashboard.show');
+    Route::get('/dashboard/create/jadwalocation', [GudangController::class, 'jadwallocation'])->name('customer.refill.jadwalandlocation');
 
     // Registration Routes
     Route::get('/register', 'showRegistrationForm')->name('register');

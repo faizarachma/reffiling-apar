@@ -17,23 +17,17 @@ class GudangController extends Controller
         return view('customer.createrefile');
     }
 
-    public function show($id)
+    public function jadwallocation()
     {
-        // Logic to show a specific item
-        return view('dashboard.show', compact('id'));
+        return view('customer.refile.jadwalandlocation');
     }
 
-    public function create()
-    {
-        // Logic to show the form for creating a new item
-        return view('dashboard.create');
-    }
+
 
     public function store(Request $request)
     {
-        // Logic to store a new item
-        // Validate and save the data
-        return redirect()->route('dashboard.index');
+        
+
     }
 
     public function edit($id)
