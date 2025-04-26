@@ -1,4 +1,6 @@
-<nav class="bg-white shadow-sm sticky top-0 z-50">
+<nav class="bg-white shadow-sm sticky top-0 z-50" x-data="{ isOpen: false, isLoggedIn: {{ auth()->check() ? 'true' : 'false' }} }">
+    <!-- ... bagian lainnya tetap sama ... -->
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
@@ -8,8 +10,7 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex md:items-center md:space-x-1 ml-10">
-                <a href="{{ route('home') }}"
-                    class="px-3 py-2 rounded-md text-sm font-medium text-red-600 bg-red-50">Beranda</a>
+                <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-red-600 bg-red-50">Beranda</a>
                 <a href="#"
                     class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 transition-colors duration-200">Lokasi</a>
                 <a href="#"
@@ -19,16 +20,35 @@
                     Kami</a>
             </div>
 
-            <!-- Auth Links -->
-            <div class="hidden md:flex md:items-center md:space-x-2 ml-auto">
-                <a href="{{ route('login') }}"
-                    onclick="event.preventDefault(); window.location.href='{{ route('login') }}'"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 transition-colors">
-                    Masuk
-                </a>
-                <a href="#"
-                    class="px-4 py-2 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors duration-200 shadow-sm">Daftar</a>
+            <!-- Auth Links - Desktop -->
+            <div class=" md:flex md:items-center md:space-x-2 ml-auto">
+                <template x-if="!isLoggedIn">
+                    <!-- Tampilkan ketika belum login -->
+                    <a href="{{ route('login') }}"
+                        class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 transition-colors">
+                        Masuk
+                    </a>
+                </template>
+                <template x-if="!isLoggedIn">
+                    <a href="{{ route('register') }}"
+                        class="px-4 py-2 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors duration-200 shadow-sm">
+                        Daftar
+                    </a>
+                </template>
+                <template x-if="isLoggedIn">
+                    <!-- Tampilkan ketika sudah login -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit"
+                            class="px-4 py-2 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors duration-200 shadow-sm">
+                            Logout
+                        </button>
+                    </form>
+                </template>
             </div>
+
+
+
 
             <!-- Mobile menu button -->
             <div class="flex items-center md:hidden ml-4">
@@ -54,61 +74,76 @@
     </div>
 
 
-    <div x-show="isOpen" @click.away="isOpen = false" class="md:hidden bg-white shadow-lg " id="mobile-menu"
-        x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
-        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
-        <div class="px-2 pt-2 pb-3 space-y-1 align-items-center">
-            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-red-600">Beranda</a>
-            <a href="#"
-                class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-red-600 hover:bg-red-50">Lokasi</a>
-            <a href="#"
-                class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-red-600 hover:bg-red-50">Produk</a>
-            <a href="#"
-                class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-red-600 hover:bg-red-50">Tentang
-                Kami</a>
-        </div>
-        <div class="pt-2 pb-3 border-t border-gray-200">
-            <div class="px-2 space-y-1">
+    <!-- Mobile Auth Links -->
+    <div class="pt-2 pb-3 border-t border-gray-200" x-show="isOpen">
+        <div class="px-2 space-y-1">
+            <template x-if="!isLoggedIn">
                 <a href="{{ route('login') }}"
-                    onclick="event.preventDefault(); window.location.href='{{ route('login') }}'"
                     class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 transition-colors">
                     Masuk
                 </a>
-                <a href="#"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-white hover:bg-red-600">Daftar</a>
-            </div>
+            </template>
+            <template x-if="!isLoggedIn">
+                <a href="{{ route('register') }}"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-white bg-red-600 hover:bg-red-700">
+                    Daftar
+                </a>
+            </template>
+            <template x-if="isLoggedIn">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                        class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-white bg-red-600 hover:bg-red-700">
+                        Logout
+                    </button>
+                </form>
+            </template>
         </div>
     </div>
 </nav>
 
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 <script>
-    // Initialize Alpine.js
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('navbar', () => ({
-            isOpen: false
-        }))
-    });
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('navbar', () => ({
-            isOpen: false
-        }))
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuButton = document.querySelector('[data-mobile-menu-toggle]');
-        const mobileMenu = document.querySelector('#mobile-menu');
+    < script >
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('navbar', () => ({
+                isOpen: false,
+                isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
 
-        mobileMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
+                init() {
+                    // Listen for login/logout events
+                    window.addEventListener('user-logged-in', () => {
+                        this.isLoggedIn = true;
+                    });
+
+                    window.addEventListener('user-logged-out', () => {
+                        this.isLoggedIn = false;
+                    });
+                }
+            }))
         });
-    });
-    document.addEventListener('click', function(event) {
-        const mobileMenu = document.querySelector('#mobile-menu');
-        const mobileMenuButton = document.querySelector('[data-mobile-menu-toggle]');
 
-        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
-            mobileMenu.classList.add('hidden');
-        }
+    // Handle logout form submission
+    document.addEventListener('DOMContentLoaded', function() {
+        const logoutForms = document.querySelectorAll('form[action="{{ route('logout') }}"]');
+
+        logoutForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                fetch(this.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({})
+                    })
+                    .then(response => {
+                        if (response.redirected) {
+                            window.location.href = response.url;
+                        }
+                    });
+            });
+        });
     });
 </script>
