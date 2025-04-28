@@ -12,8 +12,9 @@
                     <p>Selamat Datang, {{ Auth::user()->name }}</p>
                 </div>
                 <div>
-                    <button onclick="window.location.href='{{ route('dashboard.create.relife) }}'"
-                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200 flex items-center">
+                    <button onclick="window.location.href='{{ route('dashboard.create.relife') }}'"
+                        class="px-4
+                        py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200 flex items-center">
 
                         <svg viewBox="0 0 24 24" fill="none" class="w-7 h-7 pr-2" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
