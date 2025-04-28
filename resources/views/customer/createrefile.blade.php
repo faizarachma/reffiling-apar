@@ -10,10 +10,6 @@
             <!-- Product Selection -->
             @include('customer.refile.product')
 
-
-
-
-
         </div>
     </div>
 @endsection

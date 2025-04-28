@@ -17,13 +17,21 @@ Route::controller(AuthController::class)->group(function() {
     Route::post('/login', 'login');
 
     Route::get('/dashboard', [GudangController::class, 'dashboard'])->name('customer.dashboard');
-    Route::get('/dashboard/create', [GudangController::class, 'createrefile'])->name('dashboard.create.relife');
-    Route::get('/dashboard/{id}', [GudangController::class, 'show'])->name('dashboard.show');
-    Route::get('/dashboard/create/jadwalocation', [GudangController::class, 'jadwallocation'])->name('customer.refill.jadwalandlocation');
+
+
+    Route::prefix('refill')->group(function() {
+        Route::get('create', [GudangController::class, 'createrefile'])->name('customer.createrefile');
+        Route::get('jadwal', [GudangController::class, 'jadwallocation'])->name('customer.refile.jadwalandlocation');
+        Route::get('pengiriman', [GudangController::class, 'pengiriman'])->name('customer.refile.pickupsection');
+        Route::get('pembayaran', [GudangController::class, 'payment'])->name('customer.refile.payment');
+        Route::get('konfirmasi', [GudangController::class, 'konfirmasi'])->name('customer.refile.confirmation');
+    });
 
     // Registration Routes
-    Route::get('/register', 'showRegistrationForm')->name('register');
-    Route::post('/register', 'register');
+    Route::get('/register', 'register')->name('register');
+    Route::post('/register', [AuthController::class, 'registerPost'])->name('register.post');
+
+
 
     // Logout Route
     Route::post('/logout', 'logout')->name('logout');
