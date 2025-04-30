@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class product_care extends Model
+class Product_care extends Model
 {
     use HasFactory;
     protected $table = 'product_cares';

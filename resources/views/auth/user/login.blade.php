@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('auth.main')
 @section('content')
     <div class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-md bg-white rounded-xl shadow-lg overflow-hidden">
@@ -64,7 +64,8 @@
                 <div class="text-center">
                     <p class="text-gray-600">
                         Belum punya akun?
-                        <a href="#" class="text-red-600 font-medium hover:text-red-800 ml-1">Daftar sekarang</a>
+                        <a href="{{ route('register') }}" class="text-red-600 font-medium hover:text-red-800 ml-1">Daftar
+                            sekarang</a>
                     </p>
                 </div>
             </div>

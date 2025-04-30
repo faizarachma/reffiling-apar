@@ -3,43 +3,52 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class product extends Model
+class Product extends Model
 {
     use HasFactory;
+
     protected $table = 'products';
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'id_product',
+        'name',
         'id_category_product',
         'id_subcategory_product',
         'create_sn',
-        'id_product',
-        'name',
-        'pno',
-        'price_lama',
         'price',
+        'price_lama',
         'stock',
-        'description',
+        'pno',
         'minqty',
         'weight',
+        'panjang',
+        'lebar',
+        'tinggi',
+        'type',
+        'kapasitas',
+        'fire_rating',
+        'kelas_kebakaran',
+        'tabung_silinder',
+        'description',
         'expired',
         'warranty',
         'expired_sni',
         'warranty_sni',
-        'create_date',
         'status',
-        'panjang',
-        'lebar',
-        'tinggi',
-        'fire_rating',
         'media',
-        'type',
-        'kapasitas',
-        'kelas_kebakaran',
-        'tabung_silinder',
+
+    ];
+
+    protected $casts = [
+        'price' => 'float',
+        'price_lama' => 'float',
+        'weight' => 'float',
+        'panjang' => 'float',
+        'lebar' => 'float',
+        'tinggi' => 'float',
 
     ];
 }

@@ -79,6 +79,11 @@ class GudangController extends Controller
         ];
     }
 
+    public function dashboardDistributor()
+    {
+        return view('distributor.dashboardAdmin');
+    }
+
     public function store(Request $request)
     {
 

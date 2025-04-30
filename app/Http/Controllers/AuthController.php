@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('auth.user.login');
     }
 
     public function login(Request $request)
@@ -44,7 +44,7 @@ class AuthController extends Controller
 
     public function register()
     {
-        return view('auth.register');
+        return view('auth.user.register');
     }
 
 
@@ -68,7 +68,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('login')->with('success', 'Registrasi berhasil!, Silahkan login');
+        return redirect()->route('customer.dashboard')->with('success', 'Registrasi berhasil!, Silahkan login');
     }
 
     public function store(Request $request)
@@ -102,4 +102,60 @@ class AuthController extends Controller
 
         return redirect('/')->with('success', 'You have been logged out.');
     }
+
+    public function profile()
+    {
+        return view('customer.profile');
+    }
+
+
+    public function showloginDistributor(){
+        return view('auth.distributor-admin.login');
+    }
+
+   public function loginDistributor(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            // Periksa role yang diizinkan (admin atau agen)
+            if ($user->role === 'customer') {
+                Auth::logout();
+                return back()
+                    ->withErrors([
+                        'email' => 'Hanya distributor dan admin yang dapat mengakses sistem ini.',
+                    ])
+                    ->onlyInput('email');
+            }
+
+            // Redirect berdasarkan role
+            if ($user->role === 'agent') {
+                return redirect()->intended(route('admin.dashboard'));
+            } elseif ($user->role === 'operator') {
+                return redirect()->intended(route('admin.dashboard'));
+            }
+        }
+
+        // Jika autentikasi gagal
+        return back()
+            ->withErrors([
+                'email' => 'Email atau password tidak valid.',
+            ])
+            ->onlyInput('email');
+    }
+
+
+
+    public function showloginOperator(){
+        return view('auth.operator.login');
+    }
+
 }

@@ -111,7 +111,7 @@
             </a>
             <a href=""
                 class="px-6 py-2 border border-transparent rounded-md shadow-sm text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                Kirim Permintaan
+                Payment
             </a>
         </div>
     </div>
