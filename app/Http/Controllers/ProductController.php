@@ -54,10 +54,10 @@ class ProductController extends Controller
             $file = $request->file('media');
             $filename = time() . '_' . $file->getClientOriginalName();
 
-            // Simpan ke storage public
-            $path = $file->storeAs('media', $filename, 'public');  // Perhatikan parameter ketiga 'public'
 
-            // Simpan path relatif ke database
+            $path = $file->storeAs('media', $filename, 'public');  
+
+
             $validated['media'] = 'media/' . $filename;
         }
 
@@ -70,7 +70,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $products = Product::findOrFail($id); // ambil data produk berdasarkan ID
+        $products = Product::findOrFail($id);
 
         return view('distributor.inventori.detail-product', compact('products'));
     }
